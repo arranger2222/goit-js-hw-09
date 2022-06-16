@@ -1,10 +1,13 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"
 const refs = {
-    datetimePicker: document.querySelector('#datetime-picker') 
+    datetimePicker: document.querySelector('#datetime-picker'),
+    daysField: document.querySelector('span[data-days]'),
+    hoursField: document.querySelector('span[data-hours]'),
+    minutesField: document.querySelector('span[data-minutes]'),
+    secondsField: document.querySelector('span[data-seconds]'),
 };
 const date = new Date();
-
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -16,11 +19,38 @@ const options = {
         if(differenceDate < 0){
             alert('Please choose a date in the future');
             return
-            } 
-        const countedTime = convertMs(differenceDate);
-        console.log(countedTime);
+            }         
+        return console.log(addLeadingZero(convertMs(differenceDate)));;
     },
   };
+
+let padDays;
+let padHours;
+let padMinutes;
+let padSeconds;
+
+
+function addLeadingZero(value){
+    padDays = pad(value.days);
+    padHours = pad(value.hours);
+    padMinutes = pad(value.minutes);
+    padSeconds = pad(value.seconds);
+    setTimerTime ()
+    };
+
+
+
+ function pad(value) {
+    return String(value).padStart(2, '0');
+  }
+
+function setTimerTime () {
+refs.daysField.textContent = padHours; 
+refs.hoursField.textContent = padMinutes; 
+refs.minutesField.textContent = padSeconds; 
+ 
+}
+
 
 const calendar = flatpickr(refs.datetimePicker, options);
 
